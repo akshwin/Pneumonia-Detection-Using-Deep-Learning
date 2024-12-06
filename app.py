@@ -28,7 +28,7 @@ def run():
     st.sidebar.header("About the projet :")
     st.sidebar.write("📌 The model identifies whether X-Ray uploded contains Pneumonia or not. ")
     st.sidebar.write("📌 The project is developed using a Deep learning algorithm named CNN .")
-    st.sidebar.write("📌 The model acheived an accuracy of 88%.")
+    st.sidebar.write("📌 The model acheived an accuracy of 88 percent")
     
     img_file = st.file_uploader("Choose an image",type=['jpg','jpeg','png'])
 
