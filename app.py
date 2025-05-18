@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import streamlit as st
 from PIL import Image
 from tensorflow.keras.utils import load_img, img_to_array
@@ -155,4 +154,3 @@ def run():
                 st.success('**NO PNEUMONIA!!**')
                 st.balloons()
 run()
->>>>>>> 6f4b461c0b981195d80c439ff6b5487c5659ebee
