@@ -104,7 +104,6 @@ def run():
 # Run the app
 if __name__ == "__main__":
     run()
-=======
 import streamlit as st 
 from PIL import Image
 from tensorflow.keras.utils import load_img,img_to_array
