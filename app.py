@@ -26,11 +26,11 @@ def processed_img(img_path):
 
 # Main App Function
 def run():
-    st.set_page_config(page_title="Pneumonia Detection", layout="centered")
+    st.set_page_config(page_title="Pneumonia Detection", layout="centered" , page_icon = "🫁")
     
     # Title and Description
     st.markdown(
-        "<h1 style='text-align: center; color: #FF5722;'>Pneumonia Prediction from X-Ray</h1>", 
+        "<h1 style='text-align: center; color: #FF5722;'>PneumoX : Pneumonia Prediction from X-Ray</h1>", 
         unsafe_allow_html=True
     )
     st.markdown(
@@ -40,8 +40,7 @@ def run():
     
     # Sidebar
     with st.sidebar:
-        
-        st.markdown("## 🩺 Project Info")
+        st.markdown("## 🩺 PneumoX Info")
         st.markdown("""This application uses deep learning to detect pneumonia from chest X-ray images.  
         Powered by **Convolutional Neural Networks (CNNs)** and trained on medical data.""")
 
@@ -70,24 +69,36 @@ def run():
 
     # File Upload
     img_file = st.file_uploader("📤 Upload a Chest X-Ray Image", type=['jpg', 'jpeg', 'png'])
+    use_sample = st.button("🎯 Use Sample Image")
 
+    # Create upload directory
+    upload_dir = "./upload_image"
+    os.makedirs(upload_dir, exist_ok=True)
+
+    # Determine image source
     if img_file is not None:
-        upload_dir = "./upload_image"
-        os.makedirs(upload_dir, exist_ok=True)
         save_path = os.path.join(upload_dir, img_file.name)
-
-        # Save the uploaded file
         with open(save_path, "wb") as f:
             f.write(img_file.getbuffer())
+        selected_img_path = save_path
 
-        # Display the uploaded image
+    elif use_sample:
+        sample_img_name = "pneumonia.jpeg"  # Ensure this file exists in upload_image/
+        selected_img_path = os.path.join(upload_dir, sample_img_name)
+        if not os.path.exists(selected_img_path):
+            st.warning("⚠️ Sample image not found.")
+            selected_img_path = None
+    else:
+        selected_img_path = None
+
+    # Prediction
+    if selected_img_path:
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
-            st.image(Image.open(save_path), caption='🖼 Uploaded X-Ray Image', width=300)
+            st.image(Image.open(selected_img_path), caption='🖼 Selected X-Ray Image', width=300)
 
-        # Make Prediction
         with st.spinner("🩺 Analyzing the X-ray image..."):
-            result, confidence = processed_img(save_path)
+            result, confidence = processed_img(selected_img_path)
 
         st.markdown("### 🔍 Prediction Result")
         if result in pneumonia:
