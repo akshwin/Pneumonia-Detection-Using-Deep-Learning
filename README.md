@@ -71,13 +71,13 @@ The PneumoX pipeline:
 ```
 
 Input Chest X-ray Image
-↓
+        ↓
 Resize to 224x224 pixels
-↓
+        ↓
 Normalize and Expand Dimensions
-↓
+        ↓
 Feed into Pretrained CNN Model
-↓
+        ↓
 Output: Pneumonia / No Pneumonia + Confidence Score
 
 ````
